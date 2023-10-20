@@ -57,18 +57,10 @@ request_duration = 60 * 60 # 60 minutes
 reset_duration = 12 * 60 * 60 # 24 hours
 
 
-
-for step in full_step_sequenz:
-    for i in range(len(pins)):
-        led.toggle()
-        print("led")
-        pins[i].value(step[i])
-        utime.sleep(0.1)
-
-# Import required MicroPython libraries.
-from usys import stdin
-from uselect import poll
-
-# Register the standard input so we can read keyboard presses.
-keyboard = poll()
-keyboard.register(stdin)
+i = 0
+while i < 10:
+    step.value(1)  # Setzt den step auf HIGH
+    time.sleep(1)  # Wartet eine Sekunde
+    step.value(0)  # Setzt den step auf LOW
+    time.sleep(1)  # Wartet eine Sekunde
+    i = i + 1
