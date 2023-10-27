@@ -28,7 +28,7 @@ import utime
 # # Define pin connections & motor's steps per revolution
 dirPin = Pin(15, Pin.OUT)
 stepPin = Pin(14, Pin.OUT)
-led = Pin("led")
+led = Pin("LED")
 led.toggle()
 stepsPerRevolution = 200
 
