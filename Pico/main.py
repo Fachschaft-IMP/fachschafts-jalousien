@@ -25,42 +25,48 @@
 from machine import Pin
 import utime
 
-# Define pin connections & motor's steps per revolution
+# # Define pin connections & motor's steps per revolution
 dirPin = Pin(15, Pin.OUT)
 stepPin = Pin(14, Pin.OUT)
+led = Pin("led")
+led.toggle()
+stepsPerRevolution = 200
 
-from nemastepper import Stepper
+# Set motor direction clockwise
+dirPin.value(1)
 
-stepper = Stepper(15, 14, 13)
-stepper.set_speed(2)
-stepper.do_step()
+# Spin motor slowly
+for x in range(stepsPerRevolution):
+    stepPin.value(1)
+    utime.sleep_us(2000)
+    stepPin.value(0)
+    utime.sleep_us(2000)
+
+utime.sleep(1)  # Wait a second
+
+# Set motor direction counterclockwise
+dirPin.value(0)
+
+# Spin motor quickly
+for x in range(stepsPerRevolution):
+    stepPin.value(1)
+    utime.sleep_us(1000)
+    stepPin.value(0)
+    utime.sleep_us(1000)
+
+utime.sleep(1)  # Wait a second
 
 
 
+# from Pico.nemastepper import Stepper
 
-# stepsPerRevolution = 200
+# stepper = Stepper(15, 14, 13)
+# stepper.set_speed(2)
 
-# # Set motor direction clockwise
-# dirPin.value(1)
+# # stepper.do_step()
 
-# # Spin motor slowly
-# for x in range(stepsPerRevolution):
-#     stepPin.value(1)
-#     utime.sleep_us(2000)
-#     stepPin.value(0)
-#     utime.sleep_us(2000)
+# for i in range(100):
+#     print("step")
+#     stepper.do_step()
 
-# utime.sleep(1)  # Wait a second
-
-# # Set motor direction counterclockwise
-# dirPin.value(0)
-
-# # Spin motor quickly
-# for x in range(stepsPerRevolution):
-#     stepPin.value(1)
-#     utime.sleep_us(1000)
-#     stepPin.value(0)
-#     utime.sleep_us(1000)
-
-# utime.sleep(1)  # Wait a second
 
