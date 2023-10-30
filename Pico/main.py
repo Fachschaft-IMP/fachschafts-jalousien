@@ -80,9 +80,11 @@ from machine import Pin
 # Definieren Sie die Pins für Schritt und Richtung
 step_pin = Pin(0, Pin.OUT)  # Ändern Sie 12 in Ihre Schritt-Pin-Nummer
 dir_pin = Pin(1, Pin.OUT)  # Ändern Sie 13 in Ihre Richtung-Pin-Nummer
+en_pin = Pin(2, Pin.OUT)
 
+en_pin.low()
 # Setzen Sie die Richtung
-dir_pin.value(0)  # 1 für Uhrzeigersinn, 0 für Gegenuhrzeigersinn
+dir_pin.value(1)  # 1 für Uhrzeigersinn, 0 für Gegenuhrzeigersinn
 
 # Definieren Sie die Anzahl der Schritte und die Verzögerung zwischen den Schritten
 steps = 2000
@@ -94,3 +96,5 @@ for _ in range(steps):
     time.sleep(delay)
     step_pin.value(0)
     time.sleep(delay)
+
+en_pin.high()
