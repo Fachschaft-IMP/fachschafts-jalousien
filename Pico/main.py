@@ -53,20 +53,23 @@ for x in range(stepsPerRevolution):
     utime.sleep_us(1000)
     stepPin.value(0)
     utime.sleep_us(1000)
-
 utime.sleep(1)  # Wait a second
 
 
 
-# from Pico.nemastepper import Stepper
+from nemastepper import Stepper
 
-# stepper = Stepper(15, 14, 13)
-# stepper.set_speed(2)
+stepper = Stepper(15, 14, 13)
+stepper.set_speed(2)
 
-# # stepper.do_step()
+# stepper.do_step()
 
-# for i in range(100):
-#     print("step")
-#     stepper.do_step()
+for i in range(100):
+    print("step")
+    stepper.do_step()
 
+# from AccelStepper import AccelStepper
+
+# stepper = AccelStepper()
+# stepper.
 
