@@ -19,7 +19,7 @@ while not wifi.isconnected():
 # Watchdog inizialisieren
 wtd = WDT()
 
-url = 'http://192.168.1.241:8000/?'
+url = 'http://192.168.1.241:8000/'
 # Schalter an Pin GP14 konfigurieren
 
 step_pins  = [Pin(0, Pin.OUT), Pin(3, Pin.OUT), Pin(6, Pin.OUT), Pin( 9, Pin.OUT), Pin(12, Pin.OUT)]
@@ -62,7 +62,7 @@ def step(turns, delay):
             pin.value(0)
             turn_count[count] += 1
         time.sleep_ms(delay)
-        
+
         for count in turn_count:
             if count*FULL_TURN >= MAX_TURN:
                 break
