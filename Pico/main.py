@@ -12,9 +12,10 @@ wifi = network.WLAN(network.STA_IF)
 wifi.active(True)
 wifi.connect("Fachschaft IMP", "8clFBb:oR;Q/#scBBj")  # SSID und Passwort anpassen
 
+print("connecting to wifi...")
 while not wifi.isconnected():
     pass
-
+print('connected')
 
 # Watchdog inizialisieren
 wtd = WDT()
@@ -22,10 +23,14 @@ wtd = WDT()
 url = 'http://192.168.1.241:8000/'
 # Schalter an Pin GP14 konfigurieren
 
-step_pins  = [Pin(0, Pin.OUT), Pin(3, Pin.OUT), Pin(6, Pin.OUT), Pin( 9, Pin.OUT), Pin(12, Pin.OUT)]
-dir_pins   = [Pin(1, Pin.OUT), Pin(4, Pin.OUT), Pin(7, Pin.OUT), Pin(10, Pin.OUT), Pin(13, Pin.OUT)]
-en_pins    = [Pin(2, Pin.OUT), Pin(5, Pin.OUT), Pin(8, Pin.OUT), Pin(11, Pin.OUT), Pin(14, Pin.OUT)]
-turn_count = [0, 0, 0, 0, 0]
+step_pins  = [Pin(0, Pin.OUT)]
+dir_pins   = [Pin(1, Pin.OUT)]
+en_pins    = [Pin(2, Pin.OUT)]
+turn_count = [0]
+# step_pins  = [Pin(0, Pin.OUT), Pin(3, Pin.OUT), Pin(6, Pin.OUT), Pin( 9, Pin.OUT), Pin(12, Pin.OUT)]
+# dir_pins   = [Pin(1, Pin.OUT), Pin(4, Pin.OUT), Pin(7, Pin.OUT), Pin(10, Pin.OUT), Pin(13, Pin.OUT)]
+# en_pins    = [Pin(2, Pin.OUT), Pin(5, Pin.OUT), Pin(8, Pin.OUT), Pin(11, Pin.OUT), Pin(14, Pin.OUT)]
+# turn_count = [0, 0, 0, 0, 0]
 
 led = Pin("LED")
 
@@ -52,38 +57,41 @@ def switch_dir(dir:int):
 #             pin.value(0)
 #             time.sleep_ms(delay)
 
-def step(turns, delay):
+def turn(pin, turns, delay):
+    en_pins[step_pins.index(pin)].low()
     for i in range(int(turns * FULL_TURN)):
-        for pin in step_pins:
-            pin.value(1)
-            
+        pin.value(1)
         time.sleep_ms(delay)
-        for count ,pin in enumerate(step_pins):
-            pin.value(0)
-            turn_count[count] += 1
+        pin.value(0)
         time.sleep_ms(delay)
+        turn_count[step_pins.index(pin)] += 1
 
         for count in turn_count:
             if count*FULL_TURN >= MAX_TURN:
                 break
+    print(turn_count)
 
-        
+print("initialized")
 
 
-step(200, 50)
+turn(step_pins[0], 1, 2)
+en_pins[0].high()
 last_status = 'doorOpenn'
 status = ''
-while True:
 
-    try:
-        response = requests.get(url=url)
-        json_data = response.json()
-        data = json.loads(json_data)
-        status = data["content"]
-    except:
-        pass
+print('steps done')
 
-        if status != last_status:
-            last_status = status
-            # close / open windows
+# while True:
+
+#     try:
+#         response = requests.get(url=url)
+#         json_data = response.json()
+#         data = json.loads(json_data)
+#         status = data["content"]
+#     except:
+#         pass
+
+#         if status != last_status:
+#             last_status = status
+#             # close / open windows
 
