@@ -7,14 +7,14 @@ import network
 import json
 import urequests as requests
 
-# Wi-Fi-Verbindung herstellen
-wifi = network.WLAN(network.STA_IF)
-wifi.active(True)
-wifi.connect("Fachschaft IMP", "8clFBb:oR;Q/#scBBj")  # SSID und Passwort anpassen
+# # Wi-Fi-Verbindung herstellen
+# wifi = network.WLAN(network.STA_IF)
+# wifi.active(True)
+# wifi.connect("Fachschaft IMP", "8clFBb:oR;Q/#scBBj")  # SSID und Passwort anpassen
 
-print("connecting to wifi...")
-while not wifi.isconnected():
-    pass
+# print("connecting to wifi...")
+# while not wifi.isconnected():
+#     pass
 print('connected')
 
 # Watchdog inizialisieren
