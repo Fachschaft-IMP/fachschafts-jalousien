@@ -111,6 +111,6 @@ class A4988Nema(object):
             # cleanup
             Pin(self.step_pin, False)
             Pin(self.direction_pin, False)
-            if self.mode_pins != False:
-                for pin in self.mode_pins:
-                    Pin(pin, False)
+            # if self.mode_pins != False:
+                # for pin in self.mode_pins:
+                #     Pin(pin, False)
