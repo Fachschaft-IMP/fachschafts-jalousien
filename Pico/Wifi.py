@@ -1,4 +1,5 @@
 import network
+
 class Wifi:
     def __init__(self, ssid, password):
         self.ssid = ssid
@@ -12,13 +13,3 @@ class Wifi:
         while not wifi.isconnected():
             pass
         print('connected')
-
-# # Wi-Fi-Verbindung herstellen
-# wifi = network.WLAN(network.STA_IF)
-# wifi.active(True)
-# wifi.connect("Fachschaft IMP", "8clFBb:oR;Q/#scBBj")  # SSID und Passwort anpassen
-
-# print("connecting to wifi...")
-# while not wifi.isconnected():
-#     pass
-# print('connected')
