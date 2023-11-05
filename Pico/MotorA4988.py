@@ -1,7 +1,8 @@
 from machine import Pin
 import time
 
-FULL_TURN = 200
+TURN_TO_STEP = 200
+STEP_TO_TURN = 1 / 200
 
 class MotorA4988:
     def __init__(self, step_pin:Pin, dir_pin:Pin, en_pin:Pin, MIN_TURN:float, MAX_TURN:float):
@@ -21,12 +22,8 @@ class MotorA4988:
     def turn_off_motor(self):
         self.en_pin.high() 
 
-    # def switch_dir(self, dir:int):
-    #     self.dir_pin.value(dir)
-
     def step(self, steps:int, delay_ms:float):
         iterator = 1
-        # getting index of step_pin in Step_pins array
         # decide direction
         if steps > 0:
             self.dir_pin.high()
@@ -44,7 +41,7 @@ class MotorA4988:
             time.sleep_ms(delay_ms)
             self.step_count += iterator
 
-            if self.step_count / FULL_TURN >= self.MAX_TURN or self.step_count <= self.MIN_TURN:
+            if self.step_count * STEP_TO_TURN >= self.MAX_TURN or self.step_count <= self.MIN_TURN:
                 return
 
         # disable motor
@@ -52,7 +49,6 @@ class MotorA4988:
 
     def full_turn(self, turns:float, delay_ms:float):
         iterator = 1
-        # getting index of step_pin in Step_pins array
         # decide direction
         if turns > 0:
             self.dir_pin.high()
@@ -63,24 +59,24 @@ class MotorA4988:
 
         # enable Motor
         self.turn_on_motor()
-        for i in range(int(abs(turns * FULL_TURN))):
+        for i in range(int(abs(turns * TURN_TO_STEP))):
             self.step_pin.high()
             time.sleep_ms(delay_ms)
             self.step_pin.low()
             time.sleep_ms(delay_ms)
             self.step_count += iterator
 
-            if self.step_count / FULL_TURN >= self.MAX_TURN or self.step_count <= self.MIN_TURN:
+            if self.step_count / TURN_TO_STEP >= self.MAX_TURN or self.step_count <= self.MIN_TURN:
                 return
 
         # disable motor
         self.turn_off_motor()
 
 
-    def interpolate(self, t:float):
+    def bring_to_relative_position(self, t:float, delay_ms:float):
         if t not in range(0,1):
             return
 
         position =(1 - t) * self.MIN_TURN + t * self.MAX_TURN
-        to_move = int(position * FULL_TURN - self.step_count)
-        self.step(to_move, 1)
+        to_move = int(position * TURN_TO_STEP - self.step_count)
+        self.step(to_move, delay_ms)
