@@ -3,7 +3,7 @@ import time
 from machine import Pin
 from machine import WDT
 import json
-import urequests as requests
+import urequests
 
 # self written packages
 from MotorA4988 import MotorA4988
@@ -50,3 +50,12 @@ def full_turn_all(motors):
 
 full_turn_all(motors)
 #################################################################################################
+
+slider_value = 0
+
+# Funktion zum Behandeln der HTTP-Anfrage
+def set_slider_value(request):
+    global slider_value
+    slider_value = int(request.args.get("value"))
+    return "OK"
+
