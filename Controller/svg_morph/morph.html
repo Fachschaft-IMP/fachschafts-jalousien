@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG Morphing</title>
+  <style>
+    svg {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+    <!-- <img id = "my-circle" src="../XD/Jalou_open.svg" alt="SVG-Datei" /> -->
+  <svg id="my-svg" width="400" height="400">
+    <circle id="my-circle" cx="50" cy="50" r="20" fill="red" />
+  </svg>
+
+  <script>
+    const svg = document.getElementById('my-svg');
+    const circle = document.getElementById('my-circle');
+    let isDragging = false;
+    let startDragX, startDragY;
+  
+    circle.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', endDrag);
+  
+    function startDrag(event) {
+      isDragging = true;
+      startDragX = event.clientX;
+      startDragY = event.clientY;
+    }
+  
+    function drag(event) {
+      if (isDragging) {
+        const offsetX = event.clientX - startDragX;
+        const offsetY = event.clientY - startDragY;
+        circle.setAttribute('cx', parseInt(circle.getAttribute('cx')) + offsetX);
+        circle.setAttribute('cy', parseInt(circle.getAttribute('cy')) + offsetY);
+      }
+    }
+  
+    function endDrag(event) {
+      isDragging = false;
+      const offsetX = event.clientX - startDragX;
+      const offsetY = event.clientY - startDragY;
+      animateToSamePosition(circle, offsetX, offsetY);
+    }
+  
+    function animateToSamePosition(element, offsetX, offsetY) {
+      // Verwende CSS-Übergänge, um eine Animation zur gleichen Position zu erzeugen
+      element.style.transition = 'transform 0.3s';
+      element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      setTimeout(() => {
+        element.style.transition = '';
+        element.style.transform = '';
+      }, 300);
+    }
+  </script>
+</body>
+</html>
