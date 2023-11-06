@@ -111,7 +111,7 @@ def full_turn(step_pin, turns, delay_ms):
 print("initialized")
 
 # step(step_pins[0], 200, 2)
-full_turn(step_pins[0], 1, 2)
+full_turn(step_pins[0], 10, 2)
 time.sleep_ms(2)
 full_turn(step_pins[0], -1, 2)
 
