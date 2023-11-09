@@ -1,34 +1,42 @@
-.slider{
+.slider {
     width: 100vw;
     height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.slider .container-slider{
+.slider .container-slider {
+    position: absolute;
     width: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: rotate(90deg)
-}
-
-#sss {
-    position: relative;
     height: 300px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    opacity: 1;
-    z-index: 0;
+    top: calc(50% - 150px);
+    left: calc(50% - 300px);
+    transform: rotate(90deg);
+    z-index: 2;
 }
 
-.lamelle {
+.slider .container-slider #sss {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+}
+
+.jalousie {
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 20vw);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jalousie .lamelle {
+    position: absolute;
     width: 40vw;
-    /*height: 3vh;*/
-    position:fixed;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
