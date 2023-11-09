@@ -1,0 +1,11 @@
+/*.jalousie {*/
+/*    transform: scale(0.5);*/
+/*}*/
+
+.lamell {
+    width: 40vw;
+    /*height: 3vh;*/
+    position: absolute;
+    left: 100px;
+    top: 50px;
+}

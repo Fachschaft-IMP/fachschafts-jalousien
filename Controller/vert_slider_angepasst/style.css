@@ -1,0 +1,34 @@
+.slider{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider .container-slider{
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(90deg)
+}
+
+#sss {
+    position: relative;
+    height: 300px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 1;
+    z-index: 0;
+}
+
+.lamelle {
+    width: 40vw;
+    /*height: 3vh;*/
+    position:fixed;
+    justify-content: center;
+    align-items: center;
+}

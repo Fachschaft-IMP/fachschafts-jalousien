@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Window</title>
+</head>
+<body>
+    <div class="slider">
+        <div class="container-slider">
+          <input type="range" min="0" max="1" step=".01" value="" id="sss">
+        </div>
+        <div class="jalousie">
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+            <div class="lamelle"><img src="Lamelle.svg" alt=""></div>
+        </div>
+      </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('sss');
+            const lamellen = document.querySelectorAll('.lamelle');
+
+            slider.addEventListener('input', function() {
+                const value = slider.value;
+                let i = 0;
+                for (const lamelle of lamellen) {
+                    lamelle.style.top = 50 + (value - slider.min) * (i * lamelle.offsetHeight*0.8) / (slider.max - slider.min) + 'px';
+                    i++;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
