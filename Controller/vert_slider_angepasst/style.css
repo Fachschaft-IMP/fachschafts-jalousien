@@ -23,7 +23,7 @@
     opacity: 1;
 }
 
-.jalousie {
+.slider .jalousie {
     position: absolute;
     top: calc(50% - 150px);
     left: calc(50% - 20vw);
@@ -33,7 +33,7 @@
     align-items: center;
 }
 
-.jalousie .lamelle {
+.slider .jalousie .lamelle {
     position: absolute;
     width: 40vw;
     display: flex;

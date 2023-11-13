@@ -34,7 +34,7 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 # motors = [motor0, motor1, motor2, motor3, motor4]
 
 
-motor0.full_turn(10, 1)
+# motor0.full_turn(10, 1)
 
 # #################################################################################################
 # import concurrent.futures
@@ -58,4 +58,21 @@ motor0.full_turn(10, 1)
 #     global slider_value
 #     slider_value = int(request.args.get("value"))
 #     return "OK"
+
+
+
+import socket
+
+s = socket.socket()
+addr = socket.getaddrinfo('127.0.0.1', 5500)[0][-1]
+s.bind(addr)
+s.listen(1)
+print("starting true schleife")
+while True:
+    cl, addr = s.accept()
+    request = cl.recv(1024)
+    request = str(request)
+    value = request.split("value=")[1]
+    print("Received slider value:", value)
+    cl.close()
 
