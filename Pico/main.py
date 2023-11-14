@@ -61,18 +61,42 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 
 
 
+# import socket
+
+# s = socket.socket()
+# addr = socket.getaddrinfo('0.0.0.0', 3000)[0][-1]
+# s.bind(addr)
+# s.listen(1)
+# print("starting true schleife")
+# while True:
+#     cl, addr = s.accept()
+#     request = cl.recv(1024)
+#     request = str(request)
+#     value = request.split("value=")[1]
+#     print("Received slider value:", value)
+#     cl.close()
+
 import socket
 
-s = socket.socket()
-addr = socket.getaddrinfo('127.0.0.1', 5500)[0][-1]
-s.bind(addr)
-s.listen(1)
-print("starting true schleife")
+server_ip = '0.0.0.0'  # IP-Adresse des Servers (alle verfügbaren Netzwerkschnittstellen)
+server_port = 3000  # Port, auf dem der Server lauscht
+
+# Server-Socket erstellen und auf eingehende Verbindungen warten
+server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_sock.bind((server_ip, server_port))
+server_sock.listen(1)
+print('Server listening on', server_ip, 'port', server_port)
+
+# Verbindung akzeptieren und Daten empfangen
+client_sock, client_addr = server_sock.accept()
+print('Client connected:', client_addr)
+
 while True:
-    cl, addr = s.accept()
-    request = cl.recv(1024)
-    request = str(request)
-    value = request.split("value=")[1]
-    print("Received slider value:", value)
-    cl.close()
+    data = client_sock.recv(1024).decode().strip()
+    if data:
+        print('Received value:', data)
+        # Hier kannst du den erhaltenen Wert weiterverarbeiten
+
+client_sock.close()
+server_sock.close()
 
