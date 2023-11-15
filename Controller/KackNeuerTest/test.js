@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 
 
-app.post('/control', express.json(), (req, res) => {
+app.post('/', express.json(), (req, res) => {
   const action = req.body.action;
   if (action === 'set-volume') {
     const volume = req.body.volume;

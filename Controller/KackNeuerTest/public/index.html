@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Volume Control</title>
+</head>
+<body>
+ <form id="volume-form">
+   <input type="range" id="volume-slider" min="0" max="100" value="50">
+   <button type="submit" id="set-volume-button">Set Volume</button>
+ </form>
+
+ <script>
+   document.getElementById('volume-form').addEventListener('submit', function(event) {
+     event.preventDefault();
+
+     const volume = document.getElementById('volume-slider').value;
+
+     fetch('/', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         action: 'set-volume',
+         volume: volume,
+       }),
+     })
+     .then(response => response.text())
+     .then(data => console.log(data))
+     .catch((error) => {
+       console.error('Error:', error);
+     });
+   });
+ </script>
+</body>
+</html>
