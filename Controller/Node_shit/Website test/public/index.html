@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Volume Control</title>
+</head>
+<body>
+  <input type="range" id="volume-slider" min="0" max="100" value="20" onclick="setVolume()">
+
+
+ <script>
+  function setVolume() {
+    const volume = document.getElementById('volume-slider').value;
+ 
+    fetch('/set-volume', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        volume: volume,
+      }),
+    })
+    .then(response => response.text())
+    .then(data => console.log(data))
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  };
+ </script>
+</body>
+</html>
