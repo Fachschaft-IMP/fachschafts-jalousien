@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>HTML5 Slider Example</title>
 </head>
 <body>
-    <!-- <div class="rangeslider"> 
-        <input type="range" min="1" max="100" value="10" class="myslider" id="sliderRange"> 
-    </div> -->
-
-    <form action="/" method="post">
-        <input type="range" min="1" max="100" value="10" class="myslider" id="value"> 
-        <!-- <input type="submit" value="Submit"> -->
-      </form>
-      
-
+  <input type="range" id="slider1" name="slider1" min="0" max="100" value="50" oninput="submit()">
+  <input type="range" id="slider2" name="slider2" min="0" max="100" value="50" oninput="submit()">
+  <input type="range" id="slider3" name="slider3" min="0" max="100" value="50" oninput="submit()">
+  <input type="range" id="slider4" name="slider4" min="0" max="100" value="50" oninput="submit()">
+  <input type="range" id="slider5" name="slider5" min="0" max="100" value="50" oninput="submit()">
+  
+  <script>
+    function submit() {
+      const slider1 = document.getElementById("slider1").value;
+      const slider2 = document.getElementById("slider2").value;
+      const slider3 = document.getElementById("slider3").value;
+      const slider4 = document.getElementById("slider4").value;
+      const slider5 = document.getElementById("slider5").value;
+      console.log("lol");
+    }
+  </script>
 </body>
 </html>
