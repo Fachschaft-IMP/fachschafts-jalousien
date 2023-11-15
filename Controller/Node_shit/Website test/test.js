@@ -18,8 +18,13 @@ app.post('/set-volume', (req, res) => {
 });
 
 app.get('/get-volume', (req, res) => {
-  res.send({ volume: volume });
+  res.setHeader('Content-Type', 'application/json');
+  res.json({ volume: volume });
  });
+
+// app.get('/get-volume', (req, res) => {
+//   res.json({ volume: volume });
+//  });
 
 app.listen(3000, () => {
  console.log('Server started on port http://localhost:3000/');

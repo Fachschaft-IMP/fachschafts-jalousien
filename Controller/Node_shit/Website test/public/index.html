@@ -26,6 +26,18 @@
       console.error('Error:', error);
     });
   };
+
+
+  window.onload = function() {
+    fetch('/get-volume')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('volume-slider').value = data.volume;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+   };
  </script>
 </body>
 </html>
