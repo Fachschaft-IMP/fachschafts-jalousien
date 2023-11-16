@@ -22,7 +22,8 @@ function changeSlider(id) {
     let volume = document.getElementById(id).value;
 
     let sliders = document.querySelectorAll('input[type="range"]');
-    for (let i = 0; i < sliders.length-1; i++) {
+    sliders = Array.from(sliders).filter(slider => slider.id !== 'master-slider');
+    for (let i = 0; i < sliders.length; i++) {
         sliders[i].value = volume;
     }
 }
