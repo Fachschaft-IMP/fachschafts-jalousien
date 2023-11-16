@@ -4,40 +4,14 @@
  <title>Volume Control</title>
 </head>
 <body>
-  <input type="range" id="volume-slider" min="0" max="100" value="20" onclick="setVolume()">
+  <input type="range" id="jalou-slider1" min="0" max="100" value="20" onclick="setVolume(this.id)">
+  <input type="range" id="jalou-slider2" min="0" max="100" value="20" onclick="setVolume(this.id)">
+  <input type="range" id="jalou-slider3" min="0" max="100" value="20" onclick="setVolume(this.id)">
+  <input type="range" id="jalou-slider4" min="0" max="100" value="20" onclick="setVolume(this.id)">
+  <input type="range" id="jalou-slider5" min="0" max="100" value="20" onclick="setVolume(this.id)">
+  <input type="range" id="master-slider" min="0" max="100" value="20" oninput="changeSlider(this.id)" onclick="setMasterVolume(this.id)">
 
 
- <script>
-  function setVolume() {
-    const volume = document.getElementById('volume-slider').value;
- 
-    fetch('/set-volume', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        volume: volume,
-      }),
-    })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  };
-
-
-  window.onload = function() {
-    fetch('/get-volume')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('volume-slider').value = data.volume;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-   };
- </script>
+  <script src="jalou.js"></script>
 </body>
 </html>
