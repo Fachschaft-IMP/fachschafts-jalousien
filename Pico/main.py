@@ -76,17 +76,36 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 #     print("Received slider value:", value)
 #     cl.close()
 
-import socket
+
+
+try:
+    import usocket as socket
+except:
+    import socket
+
 import ujson
 
+def web_page():
+  return """<html><head></head><body><h1>MicroPython Server</h1></body></html>"""
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('', 1234))
+s.bind(('', 8000))
 s.listen(5)
 
+
+
 while True:
-  clientsocket, address = s.accept()
-  print(f"Verbindung von {address} hergestellt")
-  data = clientsocket.recv(1024)
-  json_data = ujson.loads(data.decode())
-  print(f"Empfangen: {json_data}")
-  clientsocket.close()
+  conn, addr = s.accept()
+  request = conn.recv(1024)
+  request = str(request)
+  print('Inhalt = %s' % request)
+  if (request.find('POST') == 6):
+    json_str = request[request.find('{'):request.find('}')+1]
+    json_obj = ujson.loads(json_str)
+    print(json_obj) # Hier können Sie mit dem empfangenen JSON-Objekt arbeiten
+  response = web_page()
+  conn.send('HTTP/1.1 200 OK\n')
+  conn.send('Content-Type: text/html\n')
+  conn.send('Connection: close\n\n')
+  conn.sendall(response)
+  conn.close()
