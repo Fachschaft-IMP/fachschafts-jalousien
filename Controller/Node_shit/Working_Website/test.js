@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const net = require('net');
 const app = express();
 
 let volumes = {
@@ -28,17 +27,7 @@ app.post('/set-volume', (req, res) => {
     id: id,
     volume: volumes[id]
   };
- 
-  const client = net.createConnection({ port: 4000, host: '192.168.1.75' }, () => {
-    client.write(JSON.stringify(data)); // Konvertieren Sie das Objekt in eine JSON-Zeichenkette
-  });
- 
-  client.on('end', () => {
-    console.log('Verbindung beendet');
-    return res.send('Werte gesendet');
-  });
- 
-  return res.send('Volume received');
+
 });
 
 

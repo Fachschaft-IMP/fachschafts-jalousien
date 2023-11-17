@@ -8,6 +8,7 @@ import urequests
 # self written packages
 from MotorA4988 import MotorA4988
 from Wifi import Wifi
+from Mqtt import Mqtt
 
 # declaring constants
 FULL_TURN =  200
@@ -59,53 +60,11 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 #     slider_value = int(request.args.get("value"))
 #     return "OK"
 
-
-
-# import socket
-
-# s = socket.socket()
-# addr = socket.getaddrinfo('0.0.0.0', 3000)[0][-1]
-# s.bind(addr)
-# s.listen(1)
-# print("starting true schleife")
-# while True:
-#     cl, addr = s.accept()
-#     request = cl.recv(1024)
-#     request = str(request)
-#     value = request.split("value=")[1]
-#     print("Received slider value:", value)
-#     cl.close()
-
-
-
-try:
-    import usocket as socket
-except:
-    import socket
-
-import ujson
-
-def web_page():
-  return """<html><head></head><body><h1>MicroPython Server</h1></body></html>"""
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('', 8000))
-s.listen(5)
-
-
+mqtt = Mqtt()
+client = mqtt.mqttConnect()
+client.subscribe(['jalou1', 'jalou2', 'jalou3', 'jalou4', 'jalou5'])
 
 while True:
-  conn, addr = s.accept()
-  request = conn.recv(1024)
-  request = str(request)
-  print('Inhalt = %s' % request)
-  if (request.find('POST') == 6):
-    json_str = request[request.find('{'):request.find('}')+1]
-    json_obj = ujson.loads(json_str)
-    print(json_obj) # Hier können Sie mit dem empfangenen JSON-Objekt arbeiten
-  response = web_page()
-  conn.send('HTTP/1.1 200 OK\n')
-  conn.send('Content-Type: text/html\n')
-  conn.send('Connection: close\n\n')
-  conn.sendall(response)
-  conn.close()
+    client.check_msg()
+    time.sleep(1)
+
