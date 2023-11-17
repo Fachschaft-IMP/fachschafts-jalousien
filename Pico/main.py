@@ -77,26 +77,16 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 #     cl.close()
 
 import socket
+import ujson
 
-server_ip = '0.0.0.0'  # IP-Adresse des Servers (alle verfügbaren Netzwerkschnittstellen)
-server_port = 3000  # Port, auf dem der Server lauscht
-
-# Server-Socket erstellen und auf eingehende Verbindungen warten
-server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_sock.bind((server_ip, server_port))
-server_sock.listen(1)
-print('Server listening on', server_ip, 'port', server_port)
-
-# Verbindung akzeptieren und Daten empfangen
-client_sock, client_addr = server_sock.accept()
-print('Client connected:', client_addr)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', 1234))
+s.listen(5)
 
 while True:
-    data = client_sock.recv(1024).decode().strip()
-    if data:
-        print('Received value:', data)
-        # Hier kannst du den erhaltenen Wert weiterverarbeiten
-
-client_sock.close()
-server_sock.close()
-
+  clientsocket, address = s.accept()
+  print(f"Verbindung von {address} hergestellt")
+  data = clientsocket.recv(1024)
+  json_data = ujson.loads(data.decode())
+  print(f"Empfangen: {json_data}")
+  clientsocket.close()

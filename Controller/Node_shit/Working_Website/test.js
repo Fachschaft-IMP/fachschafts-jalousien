@@ -54,4 +54,5 @@ function sendToPico(id, volume) {
   });
   
   res.send('Werte gesendet');
+  console.lof("test");
 }
