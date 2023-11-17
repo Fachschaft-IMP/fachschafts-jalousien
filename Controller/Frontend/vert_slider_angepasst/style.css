@@ -33,17 +33,13 @@
     align-items: center;
 }
 
-.slider .jalousie .lamelle {
+.lamelle {
     position: absolute;
+    height: 15px;
     width: 40vw;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.lamelle {
-    width: 100px;
-    height: 15px;
     background-color: gray;
     border: 2px solid rgb(50, 50, 50);
     border-bottom-left-radius: 5px;
