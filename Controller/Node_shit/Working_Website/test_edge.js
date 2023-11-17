@@ -6,9 +6,15 @@ var mqtt = require('mqtt')
 
 var client  = mqtt.connect('mqtt://io.adafruit.com', {
     username: 'FachschaftIMP',
-    password: 'aio_SHsV37ObHftQVPWEnnGnUrSNtx2Z'
+    password: 'aio_Ctis30PsIabbtFm3mlOYTsHuudkg'
 })
 
+
+client.on('error', (err) => {
+    console.error('Verbindungsfehler:', err)
+})
+  
+  
 let volumes = {
     "jalou-slider1": 0,
     "jalou-slider2": 0,
@@ -25,24 +31,31 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // POST route to receive slider value
-app.post('/set-volume', (req, res) => {
-    let id = req.body.id;
-    volumes[id] = req.body.volume;
-    console.log('Received volume:', volumes[id], 'on id', id);
-    
-    const data = {
-        id: id,
-        volume: volumes[id]
-    };
+client.on('connect', function () {
+    console.log('Connected to MQTT broker');
+  
+    // POST route to receive slider value
+    app.post('/set-volume', (req, res) => {
+        let id = req.body.id;
+        volumes[id] = req.body.volume;
+        console.log('Received volume:', volumes[id], 'on id', id);
+        
 
+        // Ändern Sie die Werte nach Bedarf
+        var topic = 'FachschaftIMP/feeds/'+id
+        var message = ''+volumes[id]
 
-    // Ändern Sie die Werte nach Bedarf
-    var topic = 'FachschaftIMP/feeds/Jalousie/Jalou1'
-    var message = String(volumes[id])
-    client.publish(topic, message)
-    console.log("test")
+        client.publish(topic, message, function (err) {
+        if (err) {
+            console.error('Fehler beim Veröffentlichen der Nachricht:', err)
+        } else {
+            console.log('Nachricht veröffentlicht:', message)
+        }
+        });
 
-});
+        res.sendStatus(200);
+    });
+  });
 
 
 // Set slider values on Website on loading
