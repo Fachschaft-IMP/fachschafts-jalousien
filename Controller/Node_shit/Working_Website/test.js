@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const net = require('net');
 const app = express();
 
 let volumes = {
@@ -23,6 +24,9 @@ app.post('/set-volume', (req, res) => {
  volumes[id] = req.body.volume;
  console.log('Received volume:', volumes[id], 'on id', id);
  res.send('Volume received');
+
+  sendToPico(id, volumes[id]);
+
 });
 
 // Set slider values on Website on loading
@@ -34,3 +38,20 @@ app.get('/get-volume', (req, res) => {
 app.listen(3000, () => {
  console.log('Server started on port http://localhost:3000/');
 });
+
+function sendToPico(id, volume) {
+  const data = {
+    id: id,
+    volume: volume
+  };
+  
+  const client = net.createConnection({ port: 1234, host: 'localhost' }, () => {
+    client.write(JSON.stringify(data)); // Konvertieren Sie das Objekt in eine JSON-Zeichenkette
+  });
+  
+  client.on('end', () => {
+    console.log('Verbindung beendet');
+  });
+  
+  res.send('Werte gesendet');
+}
