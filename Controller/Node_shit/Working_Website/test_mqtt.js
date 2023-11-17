@@ -6,7 +6,7 @@ var mqtt = require('mqtt')
 
 var client  = mqtt.connect('mqtt://io.adafruit.com', {
     username: 'FachschaftIMP',
-    password: "aio_KoFp43Fbphs2Ptkgl9MJdTYV41CK"
+    password: "aio_QsLf06A2tuLZU7qbi9F0VijMHjQ4"
 })
 
 client.on('connect', () => {
@@ -40,7 +40,7 @@ client.on('connect', function () {
     app.post('/set-volume', (req, res) => {
         let id = req.body.id;
         volumes[id] = req.body.volume;
-        console.log('Received volume:', volumes[id], 'on id', id);
+        // console.log('Received volume:', volumes[id], 'on id', id);
         
         // if(id == 'master-slider') {
         //     // Ändern Sie die Werte nach Bedarf
@@ -60,7 +60,6 @@ client.on('connect', function () {
         //     }
         // }
 
-        // Ändern Sie die Werte nach Bedarf
         var topic = 'FachschaftIMP/feeds/'+id
         var message = ''+volumes[id]
 
@@ -68,7 +67,7 @@ client.on('connect', function () {
         if (err) {
             console.error('Fehler beim Veröffentlichen der Nachricht:', err)
         } else {
-            console.log('Nachricht veröffentlicht:', message)
+            console.log('Nachricht veröffentlicht:', message, 'on topic:', topic)
         }
         });
 
