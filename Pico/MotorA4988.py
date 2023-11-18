@@ -16,12 +16,6 @@ class MotorA4988:
     def get_step_count(self):
         return self.step_count
 
-    def turn_on_motor(self):
-        self.en_pin.low()
-
-    def turn_off_motor(self):
-        self.en_pin.high() 
-
     def step(self, steps:int, delay_ms:float):
         iterator = 1
         # decide direction
@@ -33,7 +27,7 @@ class MotorA4988:
             iterator = -1
 
         # enable Motor
-        self.turn_on_motor()
+        self.en_pin.low()
         for i in range(int(abs(steps))):
             self.step_pin.high()
             time.sleep_ms(delay_ms)
@@ -45,7 +39,7 @@ class MotorA4988:
                 return
 
         # disable motor
-        self.turn_off_motor()
+        self.en_pin.high()
 
     def full_turn(self, turns:float, delay_ms:float):
         iterator = 1
@@ -58,7 +52,8 @@ class MotorA4988:
             iterator = -1
 
         # enable Motor
-        self.turn_on_motor()
+        self.en_pin.low()
+
         for i in range(int(abs(turns * TURN_TO_STEP))):
             self.step_pin.high()
             time.sleep_ms(delay_ms)
@@ -70,11 +65,15 @@ class MotorA4988:
                 return
 
         # disable motor
-        self.turn_off_motor()
+        self.en_pin.high()
 
 
     def bring_to_relative_position(self, t:float, delay_ms:float):
+        """
+        Interpolate position between MIN_TURN and MAX_TURN
+        """
         if t not in range(0,1):
+            print("t must be in range 0 to 1 but is", t)
             return
 
         position =(1 - t) * self.MIN_TURN + t * self.MAX_TURN

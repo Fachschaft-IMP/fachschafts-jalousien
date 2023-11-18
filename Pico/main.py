@@ -2,13 +2,12 @@ import sys
 import time
 from machine import Pin
 from machine import WDT
-import json
 import urequests
 
 # self written packages
 from MotorA4988 import MotorA4988
 from Wifi import Wifi
-from Mqtt import Mqtt
+from Wifi import request
 
 # declaring constants
 FULL_TURN =  200
@@ -40,10 +39,10 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 # #################################################################################################
 # import concurrent.futures
 
-# def full_turn_all(motors):
+# def full_turn_all(motors, turns):
 #     with concurrent.futures.ThreadPoolExecutor() as executor:
 #         # Starten Sie die full_turn-Methode für jeden Motor in einem separaten Thread
-#         futures = [executor.submit(motor.full_turn, 1, 1) for motor in motors]
+#         futures = [executor.submit(motor.full_turn, turns, 1) for motor in motors]
         
 #         # Warten Sie, bis alle Threads abgeschlossen sind
 #         concurrent.futures.wait(futures)
@@ -52,19 +51,31 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 # full_turn_all(motors)
 # #################################################################################################
 
-# slider_value = 0
 
-# # Funktion zum Behandeln der HTTP-Anfrage
-# def set_slider_value(request):
-#     global slider_value
-#     slider_value = int(request.args.get("value"))
-#     return "OK"
+# import urequests
+# import time
 
-mqtt = Mqtt()
-client = mqtt.mqttConnect()
-client.subscribe(['jalou1', 'jalou2', 'jalou3', 'jalou4', 'jalou5'])
+# url = "http://localhost:3000/get-volume"
+# data_before = None
+
+# while True:
+#     try:
+#         response = urequests.get(url)
+
+#         data_after = response.json()
+#         # Vergleiche die beiden Daten
+#         if data_before != data_after:
+#             print('Die Daten haben sich geändert:')
+#             print('Nachher:', data_after)
+#             data_before = data_after
+#             time.sleep(2)
+#         time.sleep(1)
+#     except:
+#         print("connection lost")
+#         time.sleep(104)
+
+request = request("http://localhost:3000/get-volume")
 
 while True:
-    client.check_msg()
-    time.sleep(1)
+    data = request.get()
 
