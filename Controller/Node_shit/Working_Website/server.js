@@ -22,11 +22,14 @@ app.post('/set-volume', (req, res) => {
   let id = req.body.id;
   volumes[id] = req.body.volume;
   console.log('Received volume:', volumes[id], 'on id', id);
-  
-  const data = {
-    id: id,
-    volume: volumes[id]
-  };
+
+  if(id === 'master-slider') {
+    console.log("master slider erkannt")
+    for(key in volumes) {
+      volumes[key] = req.body.volume;
+    }
+  }
+
 
 });
 

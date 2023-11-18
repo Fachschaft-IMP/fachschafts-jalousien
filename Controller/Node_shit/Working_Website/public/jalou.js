@@ -1,3 +1,4 @@
+// Post the slider value to Server
 function setVolume(id) {
     let volume = document.getElementById(id).value;
 
@@ -18,6 +19,7 @@ function setVolume(id) {
     });
 };
 
+// Changes slider value of slider 1 to 5 when master slider is used
 function changeSlider(id) {
     let volume = document.getElementById(id).value;
 
@@ -28,30 +30,28 @@ function changeSlider(id) {
     }
 }
 
-function setMasterVolume(id) {
-    let sliders = document.querySelectorAll('input[type="range"]')
+// function setMasterVolume(id) {
+//     let sliders = document.querySelectorAll('input[type="range"]')
 
-    for (let slider of sliders) {
-        let id = slider.id;
-        let volume = slider.value;
+//     for (let slider of sliders) {
+//         let id = slider.id;
+//         let volume = slider.value;
      
-        fetch('/set-volume', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: id,
-                volume: volume,
-            }),
-        })
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-     }
-}
+//         fetch('/set-volume', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 id: id,
+//                 volume: volume,
+//             }),
+//         })
+//         .catch((error) => {
+//             console.error('Error:', error);
+//         });
+//      }
+// }
 
 window.onload = function() {
     fetch('/get-volume')

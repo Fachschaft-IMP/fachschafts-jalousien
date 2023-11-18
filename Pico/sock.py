@@ -1,21 +1,32 @@
-import usocket
-import ujson
+# # Importiere das socket-Modul
+# import socket
 
-# Set up the socket connection
-s = usocket.socket()
-addr = usocket.getaddrinfo("localhost", 3000)[0][-1]
-s.bind(addr)
-s.listen(1)
+# # Erstelle eine socket-Objekt
+# client = socket.socket()
 
-# Wait for a connection
-conn, addr = s.accept()
-print('Connection from:', addr)
+# # Verbinde dich mit localhost:3000
+# client.connect(("localhost", 3000))
 
-# Receive data from the client
-data = conn.recv(1024)
-data = ujson.loads(data)
-print('Received data:', data)
+# # Schleife, die auf eingehende Nachrichten wartet
+# print("start while true")
+# while True:
+#     # Erhalte eine Nachricht vom Server
+#     message = client.recv(1024)
 
-# Close the connection
-conn.close()
-s.close()
+#     # Gib die Nachricht aus
+#     print(message.decode())
+
+import requests
+
+url = "http://localhost:3000/get-volume"
+data = {
+    "id": "jalou-slider1",
+    "volume": 50
+}
+
+while True:
+    # response = requests.post(url, json=data)
+    test = requests.get(url)
+
+    print(test.status_code)
+    print(test)
