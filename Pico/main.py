@@ -78,4 +78,5 @@ request = request("http://localhost:3000/get-volume")
 
 while True:
     data = request.get()
+    time.sleep(1)
 

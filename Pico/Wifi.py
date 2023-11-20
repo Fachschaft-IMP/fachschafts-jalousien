@@ -18,7 +18,7 @@ class Wifi:
         print('connected')
 
 import urequests
-import json
+
 class request:
     def __init__(self, url):
         self.url = url
