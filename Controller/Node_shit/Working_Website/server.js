@@ -40,7 +40,7 @@ app.get('/get-volume', (req, res) => {
   res.json(volumes);
  });
 
- app.listen(3000, '192.168.1.5', () => {
-  console.log('Server started on port http://192.168.1.5:3000/');
+ app.listen(4000, () => {
+  console.log('Server started on port http://localhost:4000/');
  });
  
