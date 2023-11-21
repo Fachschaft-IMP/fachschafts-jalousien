@@ -40,7 +40,9 @@ app.get('/get-volume', (req, res) => {
   res.json(volumes);
  });
 
- app.listen(3000, '192.168.1.5', () => {
-  console.log('Server started on port http://192.168.1.5:3000/');
- });
+ const port = 8080 // Ändern Sie dies auf einen verfügbaren Port
+ const host = '192.168.1.107' // Ändern Sie dies auf die gewünschte IP-Adresse
  
+ app.listen(port, host, () => {
+   console.log(`App läuft unter: http://${host}:${port}`)
+ })
