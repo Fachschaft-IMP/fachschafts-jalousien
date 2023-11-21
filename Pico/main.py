@@ -74,7 +74,7 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 #         print("connection lost")
 #         time.sleep(104)
 
-request = request("http://10.1.225.64:8080/get-volume")
+request = request("http://192.168.1.252:3000/get-volume")
 print("start while true")
 while True:
     data = request.get()

@@ -40,7 +40,7 @@ app.get('/get-volume', (req, res) => {
   res.json(volumes);
  });
 
- const port = 8080 // Ändern Sie dies auf einen verfügbaren Port
+ const port = 3000 // Ändern Sie dies auf einen verfügbaren Port
  
  app.listen(port, () => {
    console.log(`App läuft unter: http://localhost:${port}`)
