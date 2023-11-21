@@ -41,8 +41,7 @@ app.get('/get-volume', (req, res) => {
  });
 
  const port = 8080 // Ändern Sie dies auf einen verfügbaren Port
- const host = '192.168.1.107' // Ändern Sie dies auf die gewünschte IP-Adresse
  
- app.listen(port, host, () => {
-   console.log(`App läuft unter: http://${host}:${port}`)
+ app.listen(port, () => {
+   console.log(`App läuft unter: http://localhost:${port}`)
  })
