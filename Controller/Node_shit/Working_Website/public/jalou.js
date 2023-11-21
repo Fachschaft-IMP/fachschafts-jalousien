@@ -59,7 +59,6 @@ window.onload = function() {
     .then(data => {
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
-                console.log(key)
                 document.getElementById(key).value = data[key];
             }
         }
