@@ -93,8 +93,9 @@ while True:
         except:
             # Master slider shit hier
             print("Master-slider")
-            for motor in motors:
-                motor.bring_to_relative_position(value/100, 50)
+            MotorA4988.bring_to_relative_positions(motors, value/100, 50)
+            # for motor in motors:
+            #     motor.bring_to_relative_position(value/100, 50)
 
     time.sleep(1)
 
