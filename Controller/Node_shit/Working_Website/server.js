@@ -30,6 +30,9 @@ app.post('/set-volume', (req, res) => {
     }
   }
 
+  // res.setHeader('Content-Type', 'application/json');
+  // res.json({'id': id, 'volume':volumes[id]});
+
 
 });
 
@@ -40,7 +43,7 @@ app.get('/get-volume', (req, res) => {
   res.json(volumes);
  });
 
- const port = 3000 // Ändern Sie dies auf einen verfügbaren Port
+ const port = 5000 // Ändern Sie dies auf einen verfügbaren Port
  
  app.listen(port, () => {
    console.log(`App läuft unter: http://localhost:${port}`)

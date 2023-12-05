@@ -36,7 +36,7 @@ motors = [motor0]
 
 import json
 
-request = request("http://192.168.1.253:5000/get-volume")
+request = request("http://192.168.1.253:5000/set-volume")
 
 print("start while true")
 print(request.get())
