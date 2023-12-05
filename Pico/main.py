@@ -34,68 +34,38 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 motors = [motor0]
 # motors = [motor0, motor1, motor2, motor3, motor4]
 
-
-# motor0.full_turn(10, 1)
-
-# #################################################################################################
-# import concurrent.futures
-
-# def full_turn_all(motors, turns):
-#     with concurrent.futures.ThreadPoolExecutor() as executor:
-#         # Starten Sie die full_turn-Methode für jeden Motor in einem separaten Thread
-#         futures = [executor.submit(motor.full_turn, turns, 1) for motor in motors]
-
-#         # Warten Sie, bis alle Threads abgeschlossen sind
-#         concurrent.futures.wait(futures)
-
-
-# full_turn_all(motors)
-# #################################################################################################
-
-
-# import urequests
-# import time
-
-# url = "http://localhost:3000/get-volume"
-# data_before = None
-
-# while True:
-#     try:
-#         response = urequests.get(url)
-
-#         data_after = response.json()
-#         # Vergleiche die beiden Daten
-#         if data_before != data_after:
-#             print('Die Daten haben sich geändert:')
-#             print('Nachher:', data_after)
-#             data_before = data_after
-#             time.sleep(2)
-#         time.sleep(1)
-#     except:
-#         print("connection lost")
-#         time.sleep(104)
 import json
 
-request = request("http://192.168.1.252:3000/get-volume")
+request = request("http://192.168.1.253:5000/get-volume")
 
 print("start while true")
+print(request.get())
 while True:
-    jsonString = request.get()
-    if jsonString:
-        print(jsonString)
-        data = json.loads(jsonString)
-        idString = data['id']
-        value = data['volume']
-        try:
-            # für einzelne Motoren hier
-            id = int(idString[-1])
-            motors[id-1].bring_to_relative_position(value/100, 50)
-        except:
-            # Master slider shit hier
-            print("Master-slider")
-            MotorA4988.bring_to_relative_positions(motors, value/100, 50)
-            # for motor in motors:
-            #     motor.bring_to_relative_position(value/100, 50)
 
-    time.sleep(1)
+    jsonString = request.get()
+    data = {}
+    try:
+        data = json.loads(jsonString)
+    except:
+        data = jsonString
+    print(data)
+    if data is not None:
+
+        if 'id' in data:
+            print(jsonString)
+            data = jsonString
+            idString = data['id']
+            value = data['volume']
+            try:
+                # für einzelne Motoren hier
+                id = int(idString[-1])
+                motors[id-1].bring_to_relative_position(value/100, 50)
+            except:
+                # Master slider shit hier
+                print("Master-slider")
+                MotorA4988.bring_to_relative_positions(motors, value/100, 50)
+                # for motor in motors:
+                #     motor.bring_to_relative_position(value/100, 50)
+
+            time.sleep(1)
 
