@@ -1,17 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
- <title>Volume Control</title>
-</head>
-<body>
-  <input type="range" id="jalou-slider1" min="0" max="100" value="20" onclick="setVolume(this.id)">
-  <input type="range" id="jalou-slider2" min="0" max="100" value="20" onclick="setVolume(this.id)">
-  <input type="range" id="jalou-slider3" min="0" max="100" value="20" onclick="setVolume(this.id)">
-  <input type="range" id="jalou-slider4" min="0" max="100" value="20" onclick="setVolume(this.id)">
-  <input type="range" id="jalou-slider5" min="0" max="100" value="20" onclick="setVolume(this.id)">
-  <input type="range" id="master-slider" min="0" max="100" value="20" oninput="changeSlider(this.id)" onclick="setVolume(this.id)">
+	<head>
+		<title>Volume Control</title>
+	</head>
+	<body>
+		<input
+			type="range"
+			id="jalou-slider1"
+			min="0"
+			max="100"
+			value="20"
+			onclick="setVolume(this.id)"
+		/>
+		<input
+			type="range"
+			id="jalou-slider2"
+			min="0"
+			max="100"
+			value="20"
+			onclick="setVolume(this.id)"
+		/>
+		<input
+			type="range"
+			id="jalou-slider3"
+			min="0"
+			max="100"
+			value="20"
+			onclick="setVolume(this.id)"
+		/>
+		<input
+			type="range"
+			id="jalou-slider4"
+			min="0"
+			max="100"
+			value="20"
+			onclick="setVolume(this.id)"
+		/>
+		<input
+			type="range"
+			id="jalou-slider5"
+			min="0"
+			max="100"
+			value="20"
+			onclick="setVolume(this.id)"
+		/>
+		<input
+			type="range"
+			id="master-slider"
+			min="0"
+			max="100"
+			value="20"
+			oninput="changeSlider(this.id)"
+			onclick="setVolume(this.id)"
+		/>
 
-
-  <script src="jalou.js"></script>
-</body>
+		<script src="jalou.js"></script>
+	</body>
 </html>
