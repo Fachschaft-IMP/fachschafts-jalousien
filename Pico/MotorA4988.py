@@ -1,6 +1,6 @@
 from machine import Pin
 import time
-import concurrent.futures
+# import concurrent.futures
 
 TURN_TO_STEP = 200
 STEP_TO_TURN = 1 / 200
@@ -69,32 +69,34 @@ class MotorA4988:
         self.en_pin.high()
 
     
-    def bring_to_relative_position(self, t:float, delay_ms:float=50):
+    def bring_to_relative_position(self, t:float, delay_ms:float=5):
         """
         Interpolate position between MIN_TURN and MAX_TURN
         """
-        # if not (0 <= t <= 1):
-        #     print("t must be in range 0 to 1 but is", t)
-        #     return
+        if not (0 <= t <= 1):
+            print("t must be in range 0 to 1 but is", t)
+            return
 
         position =(1 - t) * self.MIN_TURN + t * self.MAX_TURN
         to_move = int(position * TURN_TO_STEP - self.step_count)
+        print("MotorA4 to_move", to_move, "position", position)
         self.step(to_move, delay_ms)
 
-    @staticmethod
-    def bring_to_relative_positions_in_Threads(motors, t:float, delay_ms:float=50):
-        """
-        Interpolate positions between MIN_TURN and MAX_TURN in Threads
-        """
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            # Starten Sie die full_turn-Methode für jeden Motor in einem separaten Thread
-            futures = [executor.submit(motor.bring_to_relative_position, t, delay_ms) for motor in motors]
 
-            # Warten Sie, bis alle Threads abgeschlossen sind
-            concurrent.futures.wait(futures)
+    # @staticmethod
+    # def bring_to_relative_positions_in_Threads(motors, t:float, delay_ms:float=50):
+    #     """
+    #     Interpolate positions between MIN_TURN and MAX_TURN in Threads
+    #     """
+    #     with concurrent.futures.ThreadPoolExecutor() as executor:
+    #         # Starten Sie die full_turn-Methode für jeden Motor in einem separaten Thread
+    #         futures = [executor.submit(motor.bring_to_relative_position, t, delay_ms) for motor in motors]
+
+    #         # Warten Sie, bis alle Threads abgeschlossen sind
+    #         concurrent.futures.wait(futures)
 
     @staticmethod
-    def bring_to_relative_positions(motors, t:float, delay_ms:float=50):
+    def bring_to_relative_positions(motors, t:float, delay_ms:float=5):
         """
         Interpolate positions between MIN_TURN and MAX_TURN
         """

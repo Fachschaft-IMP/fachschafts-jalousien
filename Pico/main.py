@@ -48,13 +48,15 @@ while True:
 
     if data is not None:
         print(data)
-        print(data['jalou-slider1'])
-        print(data[slider[0]])
-        # try:
+
         index = 0
         value = int(data[slider[index]])
-        # für einzelne Motoren hier
-        motors[index].bring_to_relative_position(value/100, 50)
+        print(value)
+        position =(1 - value/100) * motors[index].MIN_TURN + value/100 * motors[index].MAX_TURN
+        to_move = int(position * 200 - motors[index].step_count)
+        print("stepcount" ,motors[index].step_count,"MotorA4 to_move", to_move, "position", position)
+        motors[index].bring_to_relative_position(value/100, 5)
+
         print("brang to positn", value)
         # except:
         #     # Master slider shit hier
@@ -65,4 +67,5 @@ while True:
         #     #     motor.bring_to_relative_position(value/100, 50)
 
     time.sleep(2)
+    print("sleep")
 
