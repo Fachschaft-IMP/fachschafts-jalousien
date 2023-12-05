@@ -73,25 +73,13 @@ class MotorA4988:
         """
         Interpolate position between MIN_TURN and MAX_TURN
         """
-        if t not in range(0,1):
-            print("t must be in range 0 to 1 but is", t)
-            return
+        # if not (0 <= t <= 1):
+        #     print("t must be in range 0 to 1 but is", t)
+        #     return
 
         position =(1 - t) * self.MIN_TURN + t * self.MAX_TURN
         to_move = int(position * TURN_TO_STEP - self.step_count)
         self.step(to_move, delay_ms)
-
-        
-# def full_turn_all(motors, turns):
-#     with concurrent.futures.ThreadPoolExecutor() as executor:
-#         # Starten Sie die full_turn-Methode für jeden Motor in einem separaten Thread
-#         futures = [executor.submit(motor.full_turn, turns, 1) for motor in motors]
-
-#         # Warten Sie, bis alle Threads abgeschlossen sind
-#         concurrent.futures.wait(futures)
-
-
-# full_turn_all(motors)
 
     @staticmethod
     def bring_to_relative_positions_in_Threads(motors, t:float, delay_ms:float=50):
@@ -113,7 +101,7 @@ class MotorA4988:
         # time_to_achieve = 10
         # delay_in_time = time_to_achieve/to_move
 
-        if t not in range(0,1):
+        if not (0 <= t <= 1):
             print("t must be in range 0 to 1 but is", t)
             return
         for motor in motors:

@@ -34,38 +34,35 @@ motor0 = MotorA4988(Pin( 0, Pin.OUT), Pin( 1, Pin.OUT), Pin( 2, Pin.OUT), MIN_TU
 motors = [motor0]
 # motors = [motor0, motor1, motor2, motor3, motor4]
 
+slider = ['jalou-slider1', 'jalou-slider2', 'jalou-slider3', 'jalou-slider4', 'jalou-slider5', 'master-slider']
+
 import json
 
-request = request("http://192.168.1.253:5000/set-volume")
+request = request("http://192.168.1.253:5000/get-volume")
 
 print("start while true")
 print(request.get())
 while True:
 
-    jsonString = request.get()
-    data = {}
-    try:
-        data = json.loads(jsonString)
-    except:
-        data = jsonString
-    print(data)
+    data = request.get()
+
     if data is not None:
+        print(data)
+        print(data['jalou-slider1'])
+        print(data[slider[0]])
+        # try:
+        index = 0
+        value = int(data[slider[index]])
+        # für einzelne Motoren hier
+        motors[index].bring_to_relative_position(value/100, 50)
+        print("brang to positn", value)
+        # except:
+        #     # Master slider shit hier
+        #     print("Master-slider")
+        #     value = data[slider[-1]]
+        #     MotorA4988.bring_to_relative_positions(motors, value/100, 50)
+        #     # for motor in motors:
+        #     #     motor.bring_to_relative_position(value/100, 50)
 
-        if 'id' in data:
-            print(jsonString)
-            data = jsonString
-            idString = data['id']
-            value = data['volume']
-            try:
-                # für einzelne Motoren hier
-                id = int(idString[-1])
-                motors[id-1].bring_to_relative_position(value/100, 50)
-            except:
-                # Master slider shit hier
-                print("Master-slider")
-                MotorA4988.bring_to_relative_positions(motors, value/100, 50)
-                # for motor in motors:
-                #     motor.bring_to_relative_position(value/100, 50)
-
-            time.sleep(1)
+    time.sleep(2)
 
