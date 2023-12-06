@@ -11,9 +11,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-color: rgb(50, 50, 50);
-
 }
 
 .slider {
@@ -28,6 +25,8 @@ body {
     justify-content: center;
     align-items: center;
 
+    border: 2px solid rgb(50, 50, 50);
+
     background-color: red;
 
     position: relative;
@@ -41,8 +40,6 @@ body {
     height: var(--width);
 
     transform: rotate(90deg);
-
-    background-color: rgba(255, 0, 0, .5);
 
     position: relative;
 
@@ -64,7 +61,7 @@ body {
 
     top: 0;
 
-    height: calc(100% / 16);
+    height: calc(109% / 16);
     width: calc(100% - 4px);
 
     display: flex;
