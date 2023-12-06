@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let i = 0;
                 for (const lamelle of lamellen) {
                     // lamelle.style.top = initialPosition + (value - slider.min) * (i * lamelle.offsetHeight * 0.8) / (slider.max - slider.min) + 'px';
-                    lamelle.style.top = initialPosition + value * (100 / lamellen.length * i * 0.988) + '%';
+                    lamelle.style.top = initialPosition + value * (100 / lamellen.length * i) + '%';
                     i++;
                 }
             });

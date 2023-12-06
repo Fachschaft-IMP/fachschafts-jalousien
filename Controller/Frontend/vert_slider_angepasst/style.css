@@ -29,6 +29,8 @@ body {
 
     background-color: red;
 
+    user-select: none;
+
     position: relative;
 }
 
@@ -61,7 +63,7 @@ body {
 
     top: 0;
 
-    height: calc(109% / 16);
+    height: calc((100% - 4px * 16) / 16);
     width: calc(100% - 4px);
 
     display: flex;
@@ -72,7 +74,5 @@ body {
 
     border: 2px solid rgb(50, 50, 50);
 
-    border-radius: 0 0 5px 5px;
-
-    user-select: none;
+    /* border-radius: 0 0 5px 5px; */
 }
