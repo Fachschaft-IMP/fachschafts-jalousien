@@ -1,47 +1,80 @@
-.slider {
+body {
+    --width: 300px;
+    --heigth: 450px;
+
+    margin: 0;
+    padding: 0;
+
     width: 100vw;
     height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.slider .container-slider {
-    position: absolute;
-    width: 600px;
-    height: 300px;
-    top: calc(50% - 150px);
-    left: calc(50% - 300px);
+.slider {
+    margin: 0;
+    padding: 0;
+
+    width: var(--width);
+    height: var(--heigth);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid rgb(50, 50, 50);
+
+    user-select: none;
+
+    position: relative;
+}
+
+.container-slider {
+    margin: 0;
+    padding: 0;
+
+    width: var(--heigth);
+    height: var(--width);
+
     transform: rotate(90deg);
+
+    position: relative;
+
     z-index: 2;
 }
 
-.slider .container-slider #sss {
-    position: relative;
+#sss {
+    margin: 0;
+    padding: 0;
+
     width: 100%;
     height: 100%;
-    opacity: 1;
-}
 
-.slider .jalousie {
-    position: absolute;
-    top: calc(50% - 150px);
-    left: calc(50% - 20vw);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    opacity: 0;
 }
 
 .lamelle {
     position: absolute;
-    height: 15px;
-    width: 40vw;
+
+    top: 0;
+
+    height: calc((100% - 4px * 16) / 16);
+    width: calc(100% - 4px);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     background-color: gray;
+
     border: 2px solid rgb(50, 50, 50);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+
+    /* border-radius: 0 0 5px 5px; */
+}
+
+.lamelle:last-child {
+    border-radius: 0 0 5px 5px;
 }
