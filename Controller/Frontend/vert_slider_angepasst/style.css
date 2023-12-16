@@ -1,22 +1,27 @@
-body {
-    --width: 300px;
-    --heigth: 450px;
-
+* {
     margin: 0;
     padding: 0;
+}
 
-    width: 100vw;
-    height: 100vh;
+body {
+    --width: 120px;
+    --heigth: 180px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
+
+    width: calc(100% - 40px);
+    height: auto;
+
+    display: grid;
+    grid-template-columns: repeat(5, );
+    grid-template-rows: 1fr 40px;
+    place-items: center;
+    gap: 2px;
+
+    background-color: rgb(50, 50, 50);
 }
 
 .slider {
-    margin: 0;
-    padding: 0;
-
     width: var(--width);
     height: var(--heigth);
 
@@ -25,7 +30,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    border: 2px solid rgb(50, 50, 50);
+    background-color: white;
 
     user-select: none;
 
@@ -33,9 +38,6 @@ body {
 }
 
 .container-slider {
-    margin: 0;
-    padding: 0;
-
     width: var(--heigth);
     height: var(--width);
 
@@ -44,8 +46,6 @@ body {
     position: relative;
 
     z-index: 2;
-
-    
 }
 
 .lamelle {
@@ -62,16 +62,16 @@ body {
 
     background-color: gray;
 
-    border: 2px solid rgb(50, 50, 50);
+    border: 2px solid black;
 
     /* border-radius: 0 0 5px 5px; */
 }
 
-.lamelle:last-child {
+/* .lamelle:last-child {
     border-radius: 0 0 5px 5px;
-}
+} */
 
-#jalou-slider1 {
+.container-slider input {
     margin: 0;
     padding: 0;
 
@@ -81,46 +81,18 @@ body {
     opacity: 0;
 }
 
-#jalou-slider2 {
-    margin: 0;
-    padding: 0;
-
+.master-slider {
     width: 100%;
-    height: 100%;
+    height: 40px;
 
-    opacity: 0;
+    grid-column: span 5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#jalou-slider3 {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
+.master-slider input {
+    width: 50%;
     height: 100%;
-
-    opacity: 0;
-}
-
-#jalou-slider4 {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
-    height: 100%;
-
-    opacity: 0;
-}
-
-#jalou-slider5 {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
-    height: 100%;
-
-    opacity: 0;
-}
-.master-sldier{
-    position: absolute;
-    top: 0;
 }
