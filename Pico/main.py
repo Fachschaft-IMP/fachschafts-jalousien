@@ -13,7 +13,7 @@ from Wifi import request
 FULL_TURN =  200
 MIN_TURN  =  0  * FULL_TURN
 MAX_TURN  =  10 * FULL_TURN
-URL       = 'http://192.168.1.241:8000/'
+URL       = 'http://192.168.1.91:5000/'
 
 # connecting to wifi
 wifi = Wifi("Fachschaft IMP", "8clFBb:oR;Q/#scBBj")
