@@ -1,3 +1,4 @@
+print("Start main.py")
 import sys
 import time
 from machine import Pin
@@ -6,8 +7,7 @@ import urequests
 
 # self written packages
 from MotorA4988 import MotorA4988
-from Wifi import Wifi
-from Wifi import request
+from Wifi import Wifi, request
 
 # declaring constants
 FULL_TURN =  200
@@ -38,7 +38,7 @@ slider = ['jalou-slider1', 'jalou-slider2', 'jalou-slider3', 'jalou-slider4', 'j
 
 import json
 
-request = request("http://192.168.1.253:5000/get-volume")
+request = request("http://192.168.1.91:5000/get-volume")
 
 print("start while true")
 print(request.get())
